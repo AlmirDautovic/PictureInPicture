@@ -6,11 +6,17 @@ async function getMediaStreem() {
         const mediaStream = await navigator.mediaDevices.getDisplayMedia();
         videoElement.srcObject = mediaStream;
         videoElement.onloadedmetadata = () => {
-            videoElement.onplay();
-        }
+            videoElement.play();
+        };
     } catch (error) {
         console.log('There is error here:', error)
     }
 }
 
-getMediaStreem()
+button.addEventListener('click', async () => {
+    button.disabled = true;
+    await videoElement.requestPictureInPicture();
+    button.disabled = false;
+});
+
+getMediaStreem();
